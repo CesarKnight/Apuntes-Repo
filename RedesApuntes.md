@@ -18,6 +18,9 @@
 | 500   | /23 255.255.254.0 | 172.16.124.0 | 172.16.125.255 | 172.16.124.1 - 172.16.125.254 |
 | 256   | /23 255.255.254.0 | 172.16.125.0 | 172.16.126.255 | 172.16.125.1 - 172.16.126.254 |
 
+-----------------
+
+
 # Primeras weas en Packet Tracer
 
 ##  Clase 5 - 29/08/2025 
@@ -39,3 +42,21 @@ copy running-config startup-config - copiar las configuraciones actuales a las i
 write - guardar archivo de configuracion 
 interface (nombre interfaz) - entrar a las configuraciones de una interfaz (puerto) 
 ```
+-------------------
+
+## Clase 03/09/2025
+
+### Enrutamiento estatico basico
+
+Para comunicacion fuera de una red, es necesario dar a el uso de router (enrutador), el cual se encarga de mostrar la ruta de viaje hacia otra red. El router necesita de configuraciones para cumplir el objetivo de comunicar 2 redes por lo que se hará una red bastante usando *Enrutamiento estatico*
+
+Estatico es la forma mas basica de enrutamiento siendo que este no cambiará por su cuenta ni detectará las redes automaticamente, se hace manualmente toda la configuracion haciendolo bastante sencillo de realizar 
+
+**Ejemplo**
+Topografia:
+![alt text](Assets/Redes2/topografiaEstatica.png)
+
+
+//TODO un tuto aca
+
+
