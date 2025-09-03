@@ -1,4 +1,4 @@
-# **SUBNETTING**
+# SUBNETTING
 
 *Dada la red 172.16.64.0 /18. Encontrar:*
 
@@ -21,10 +21,8 @@
 -----------------
 
 
-# Primeras weas en Packet Tracer
-
+# Primera Topografias en Packet Tracer
 ##  Clase 5 - 29/08/2025 
-- [x] asistí
 
 ### Factos
 
@@ -54,9 +52,21 @@ Estatico es la forma mas basica de enrutamiento siendo que este no cambiará por
 
 **Ejemplo**
 Topografia:
+
 ![alt text](Assets/Redes2/topografiaEstatica.png)
 
+Una vez conectados todos los dispositivos tenemos que primero configurar la red lan (Red Area Local). La parte izquierda seria una y la derecha otra
+Trabajaremos en la LAN de la izquierda
 
-//TODO un tuto aca
+**Ingresamos a la CLI del router:**
 
+1. Pasamos a modo de configuracion global con los comandos
+
+```bat
+enable
+configure terminal
+```
+
+2. Ingresamos a la configuracion de la interfaz (puerto) a la que esta conectada el switch, en este caso es la Gigabyte 0/0/1
+3. Asignamos un
 
