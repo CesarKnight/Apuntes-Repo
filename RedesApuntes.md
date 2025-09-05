@@ -55,7 +55,7 @@ Topografia:
 
 ![alt text](Assets/Redes2/topografiaEstatica.png)
 
-Una vez conectados todos los dispositivos tenemos que primero configurar la red lan (Red Area Local). La parte izquierda seria una y la derecha otra
+Una vez conectados todos los dispositivos debemos primeramente configurar la red lan (Red Area Local). La parte izquierda seria una y la derecha otra
 Trabajaremos en la LAN de la izquierda
 
 **Ingresamos a la CLI del router:**
@@ -68,5 +68,11 @@ configure terminal
 ```
 
 2. Ingresamos a la configuracion de la interfaz (puerto) a la que esta conectada el switch, en este caso es la Gigabyte 0/0/1
-3. Asignamos un
+3. Asignamos una direccion al router, con esta accion tambien se asignará la direccion ip del router. 
 
+
+
+## Clase 05/09/2025
+
+Realizamos otro enrutamiento:
+![alt text](Redes2/topografiaEstatica2.png)
