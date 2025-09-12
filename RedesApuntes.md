@@ -107,7 +107,7 @@ ip address 10.0.0.1 255.255.255.252
 ```
 
 4. Realizar los pasos anteriores en el router vecino a conectar
-5. En configuracion global asignar, con enrutamiento estatico, declarar la red LAN a conectar a través del router vecino (dueño del otro LAN)
+5. En configuracion global, con enrutamiento estatico, declarar la red LAN a conectar a través del router vecino (dueño del otro LAN)
 
 ```
 ip route 192.168.2.0 255.255.255.0 10.0.0.2
@@ -136,8 +136,78 @@ Con la red proveida primero debemos subnettear para encontrar las ips para cada 
 
 | HOSTS | MASCARA           | D.RED        | D. BROADCAST   | RANGO                         |
 | ----- | ----------------- | ------------ | -------------- | ----------------------------- |
-| 89    | /19 255.255.224.0 | 172.16.64.0  | 172.16.95.255  | 172.16.64.1  - 172.16.95.254  |
-| 23    | /20 255.255.240.0 | 172.16.96.0  | 172.16.111.255 | 172.16.96.1  - 172.16.111.254 |
-| 9     | /21 255.255.248.0 | 172.16.112.0 | 172.16.119.255 | 172.16.112.1 - 172.16.119.254 |
-| 2     | /22 255.255.252.0 | 172.16.120.0 | 172.16.123.255 | 172.16.120.1 - 172.16.123.254 |
-| 2     | /23 255.255.254.0 | 172.16.124.0 | 172.16.125.255 | 172.16.124.1 - 172.16.125.254 |
+| 89    |    |    |   |   |
+| 23    |    |    |   |   |
+| 9     |    |    |   |   |
+| 2     |    |    |   |   |
+| 2     |    |    |   |   |
+
+
+## Clase 12/09/2025
+### Configuracion de credenciales de seguridad en el router
+
+**El Ing mando estas directivas para una topologia de solo un router: **
+
+CONFIGURACOINES BASICAS DE UN ROUTERS
+
+NOMBRE DEL DISPOSITIVO
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#hostname R01
+R01(config)#
+
+GRABAR LAS CONFIGURACIONES
+R01#copy running-config startup-config 
+Destination filename [startup-config]? 
+Building configuration...
+[OK]
+
+R01#write
+Building configuration...
+[OK]
+
+R01#w
+Building configuration...
+[OK]
+
+CONTRASEÑA PARA LA CONSOLA
+R01(config)#line console 0
+R01(config-line)#password ROBERTOCONSOLA
+R01(config-line)#login
+
+CONTRASEÑA PARA EL MODO PRIVILEGIADO
+R01(config)#enable secret ROBERTOENABLE
+
+DESACTIVA LA BUSQUEDA DE DNS
+R01(config)#no ip domain-lookup
+
+MENSAJE DE BIENVENIDA 
+R01(config)#banner motd "INGRESO SOLO A PERSONAL AUTORIZADO"
+
+ENCRIPTAR TODAS LAS CONTRASEÑAS
+R01(config)#service password-encryption
+
+
+HABILITAR SSH PARA PODER ADMINISTRA EL ROUTER REMOTAMENTE
+
+CREAR UN USUARIO CON PRIVILEGIOS
+R01(config)#username roberto privilege 15 secret ROBERTOSSH
+
+HABILITAR EL DOMINIO, por acá se conectará el dispositivo a traves de ssh
+```
+R01(config)#ip domain-name cisco.com
+```
+
+HABILITAR LAS CLAVES CRIPTOGRAFICAS PARA RSA
+R01(config)#crypto key generate rsa
+
+CONFIGURAR SSH
+R01(config)#ip ssh version 2
+R01(config)#ip ssh time-out 120
+R01(config)#ip ssh authentication-retries 3
+
+CONFIGURAR LAS TERMINALES VIRTUALES Y HABILITAR SOLO SSH
+R01(config)#line vty 0 4
+R01(config-line)#login local
+R01(config-line)#transport input ssh
