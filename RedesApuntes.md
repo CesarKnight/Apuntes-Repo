@@ -134,13 +134,13 @@ Con la red proveida primero debemos subnettear para encontrar las ips para cada 
 - todas las WANs 2 hosts
 
 
-| HOSTS | MASCARA           | D.RED        | D. BROADCAST   | RANGO                         |
-| ----- | ----------------- | ------------ | -------------- | ----------------------------- |
-| 89    |    |    |   |   |
-| 23    |    |    |   |   |
-| 9     |    |    |   |   |
-| 2     |    |    |   |   |
-| 2     |    |    |   |   |
+| HOSTS | MASCARA | D.RED | D. BROADCAST | RANGO |
+| ----- | ------- | ----- | ------------ | ----- |
+| 89    |         |       |              |       |
+| 23    |         |       |              |       |
+| 9     |         |       |              |       |
+| 2     |         |       |              |       |
+| 2     |         |       |              |       |
 
 
 ## Clase 12/09/2025
@@ -195,6 +195,7 @@ CREAR UN USUARIO CON PRIVILEGIOS
 R01(config)#username roberto privilege 15 secret ROBERTOSSH
 
 HABILITAR EL DOMINIO, por acá se conectará el dispositivo a traves de ssh
+
 ```
 R01(config)#ip domain-name cisco.com
 ```
@@ -209,5 +210,35 @@ R01(config)#ip ssh authentication-retries 3
 
 CONFIGURAR LAS TERMINALES VIRTUALES Y HABILITAR SOLO SSH
 R01(config)#line vty 0 4
-R01(config-line)#login local
+R01(config-line)#login loc 
 R01(config-line)#transport input ssh
+
+## Clase 15/09/2025. Teoria
+
+### Clasificacion de protocolos de enrutamiento.
+
+- Protocolos classful.
+NO envian la mascara de subred durante las actualizaciones de enrutamiento entre ellos: RIP, IGRP.
+
+- Protocolos classles.
+Envia la mascara de subred durante las actualizaciones de enrutamiento.
+
+**Convergencia.**
+Se define como el estado en que las tablas de enrutamiento de todos los routers son uniformes, practicamente cuando toda la red es totalmente funcional.
+
+### Metricas de los protocolos de enrutamiento.
+Es un valor para medir el desempeño y eficiencia del enrutamiento.
+
+**Metricas.**
+- Ancho de banda.
+- Costo.
+- Retraso.
+- Conteo de saltos.
+- Carga Confiabilidad.
+
+
+#### Balanceo de Carga.
+Cuando 2 rutas tienen las mismas metricas, se divide el envio de datos para mayor velocidad.
+
+#### Distancia admnistrativa de una ruta.
+
