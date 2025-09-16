@@ -12,6 +12,11 @@
 - Modelo de [examen][modelo]
 - Coleccion de [recursos][pagina] de la materia - *Big pack Support*
 
-## Maximizar
+## Maximizacion 
+### Metodo de programación lineal grafica 
 
-$       $
+**Videos para estudiar**
+
+[maximizacion]: https://youtu.be/dHTFI-wAPUg
+- Adjunto [video][maximizacion] de maximización para estudiar. 
+- 
