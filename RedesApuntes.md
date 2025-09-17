@@ -20,6 +20,21 @@
 
 -----------------
 
+255.255.255.1111 1000
+
+Ejercicio 2 - Subnetting
+
+| HOSTS | MASCARA             | D.RED         | D. BROADCAST  | RANGO                         |
+| ----- | ------------------- | ------------- | ------------- | ----------------------------- |
+| 20    | /27 255.255.255.224 | 192.168.1.0   | 192.168.1.31  | 192.168.1.1  - 192.168.1.30   |
+| 20    | /27 255.255.255.224 | 192.168.1.32  | 192.168.1.63  | 192.168.1.33 - 192.168.1.64   |
+| 20    | /27 255.255.255.224 | 192.168.1.64  | 192.168.1.95  | 192.168.1.65 - 192.168.1.94   |
+| 20    | /27 255.255.255.224 | 192.168.1.96  | 192.168.1.127 | 192.168.1.97 - 192.168.1.126  |
+| 4     | /29 255.255.254.248 | 192.168.1.128 | 192.168.1.135 | 192.168.1.129 - 192.168.1.134 |
+| 4     | /29 255.255.254.248 | 192.168.1.136 | 192.168.1.143 | 192.168.1.137 - 192.168.1.142 |
+| 4     | /29 255.255.254.248 | 192.168.1.144 | 192.168.1.151 | 192.168.1.145 - 192.168.1.150 |
+| 4     | /29 255.255.254.248 | 192.168.1.152 | 192.168.1.159 | 192.168.1.153 - 192.168.1.158 |
+
 
 # Primera Topografias en Packet Tracer
 ##  Clase 5 - 29/08/2025 
@@ -242,3 +257,14 @@ Cuando 2 rutas tienen las mismas metricas, se divide el envio de datos para mayo
 
 #### Distancia admnistrativa de una ruta.
 
+
+
+## Clase 17/09/2025
+
+Otros protocolos y mas teoria
+
+### Redistribucion
+
+Acoplarse a una red antigua implica usar otros protocolos en los que ya esta configurado la red, para ello se usa la redistribución de ru enrutamiento
+
+### Bucles de enrutamiento
