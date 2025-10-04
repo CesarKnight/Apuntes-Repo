@@ -186,28 +186,26 @@ es el reto cartografico de representar en un mapa el elipsoide que es la tierra.
 **La proyección cartográfica**, desde el punto de vista del GIS, se entiende como una función que convierte las coordenadas geográficas (esféricas) en coordenadas cartesianas (métricas) con el fin de representar en un plano un objeto tridimensional.
 
 
-### Tipos
+### Tipos de Proyecciones
 
-- Según sus propiedades prevalecientes: 
-Proyecciones conformes (conformal en inglés): en las que los ángulos se conservan y, como consecuencia, las formas son parecidas a las reales. Ejemplos de proyecciones conformes son la UTM o la proyección Lambert.
-Proyecciones equivalentes (equal area en inglés): son aquéllas en las que la superficie se conserva después de la proyección. Como ejemplo de las proyecciones equivalentes tenemos las proyecciones Lambert Azimuthal Equal-Area, Bonne, Sinusoidal y la Goode.
-Proyecciones afilácticas: son aquellas en las que no se conservan ninguna de las variables, pero se minimizan sus deformaciones. Un ejemplo de este tipo de proyecciones es la UPS (Universal Polar Stereographics), que se usa en latitudes polares.
+Según sus propiedades prevalecientes: 
+- Proyecciones conformes (conformal en inglés): en las que los ángulos se conservan y, como consecuencia, las formas son parecidas a las reales. Ejemplos de proyecciones conformes son la UTM o la proyección Lambert.
+- Proyecciones equivalentes (equal area en inglés): son aquéllas en las que la superficie se conserva después de la proyección. Como ejemplo de las proyecciones equivalentes tenemos las proyecciones Lambert Azimuthal Equal-Area, Bonne, Sinusoidal y la Goode.
+- Proyecciones afilácticas: son aquellas en las que no se conservan ninguna de las variables, pero se minimizan sus deformaciones. Un ejemplo de este tipo de proyecciones es la UPS (Universal Polar Stereographics), que se usa en latitudes polares.
 
-- Segun la superficie 
+Segun la superficie 
 
-    Las proyecciones cilíndricas; son efectivas para representar las áreas entre los trópicos     
-    La proyecciones cónicas; sirven para representar áreas en latitudes medias.          
-    Las proyecciones azimutales; sirven para representar zonas en altas latitudes.
+- Las proyecciones cilíndricas; son efectivas para representar las áreas entre los trópicos     
+- La proyecciones cónicas; sirven para representar áreas en latitudes medias.          
+- Las proyecciones azimutales; sirven para representar zonas en altas latitudes.
 
 ### Sistemas de referencia
 - Geodesico. 
   
 Son mediciones del ángulo en grados del centro de la tierra a un punto sobre su superficie.
 Latitud o paralelos es el ángulo medido de norte o sur del Ecuador, también llamado Paralelo.  Sus limites son: 0 a +90 grados norte y 0 a -90 grados sur
-  <!-- pagebreak -->
 
 Longitud o Meridiano es medido del Este o Oeste del Meridiano primero (Greenwich). Sus limites son de 0 a +180 grados este y 0 a -180 grados oeste
-
 
 - Proyectado. 
   
@@ -225,39 +223,109 @@ Esta proyección el globo terráqueo la divide en 60 fajas al Norte y al Sur de 
 Cada faja tiene su propio meridiano central.  
 
 
+## Representacion de informacion 
+1. Modelo de datos vectorial (MDV)
+2. Modelo de datos Raster (MDR)
+3. Modelo TIN (Triangulated irregular network)
+
+## Modelo de datos vectorial (MDV)
+
+Usa elementos similares a los mapas 
+- Puntos : Es registrado como una sola coordenada (x,y)
+- Líneas : Son registrados como una serie de coordenadas (x,y)
+- Areas: Son registrados como una serie de coordenadas (x,y) y definiendo segmentos que definen un área o polígono.
+
+![elementos de mapa vectoriales](<Assets/geografica/punto linea area.png>)
+
+
+## TOPOLOGIA
+Rama matematica que estudia relaciones espaciales
+La estructura de datos Arco-Nodo soporta tres conceptos:
+
+- Conectividad: Arcos conectan a cada uno de los nodos.
+- Definición de área: Arcos que conectan alrededor de un área definen un polígono
+- Contigüidad: Los arcos tiene dirección y lados derecho e izquierdo
+ 
+### Conectividad**
+Permite identificar una ruta al aeropuerto o Conectar arroyos con ríos
+![conectividad](Assets/geografica/CONECTIVIDAD.png)
+
+### Definicion de Area
+Se define como un conjunto de Arcos cerrado. Esto es denominado **Topología Polígono-arco**
+![alt text](<Assets/geografica/definicion de area.png>)
+
+### Contiguidad
+Dos objetos que comparten un limite se llaman adyacentes
+Gracias al arco, con su estructura from-node to-node se define una direccion a la que apunta, con ello identifica los poligonos que estan a su izquierda o derecha
+![alt text](Assets/geografica/CONTIGUIDAD.png)
+
+
+## EXTENSION DE MDV
+### Regiones
+![alt text](Assets/geografica/REGIONES.png)
+
+A diferencia que los poligonos por si solos no pueden sobreponerse
+Las regiones permite la sobreposicion e incluso separacion debido a que se **compone de poligonos**
+
+![alt text](Assets/geografica/regiones2.png)
+
+### Rutas
+Define caminos a lo largo de un conjunto existente de objetos geográficos lineales.
+![alt text](Assets/geografica/rutas.png)
+
+
+## Modelo de datos Raster MDR 
+Son fotos compuestas de pixeles
+Existen 3 formas de interpretar una foto:
+
+- Clasificar cada punto como perteneciente a algún grupo de similares características
+- Medir el valor de su color o sombra de grises
+- Definir el pixel relativo a un punto de referencia conocida. Ej. Bajo el nivel del mar
+
+La interpretacion de los pixeles puede dar distintos resultados despues de un analisis.
+Se interpretan como una matriz
+
+![alt text](Assets/geografica/mdr1.png)
+
+### Representacion de datos
+
+- Una característica punto es representado como un valor en una sola celda
+
+- Una característica lineal como una serie de celdas conectadas.
+
+- Una característica de área como un grupo de celdas conectadas mostrando la forma
+
+## MDV y MDR
+![alt text](<Assets/geografica/COMPARACION MDV MDR.png>)
+![alt text](<Assets/geografica/RSTERIZACION VECTORIZACION.png>)
+Es capaz de usar ambos modelos con capas, activando una o la otra para distintos usos
+
+Existe tambien la rasterizacion y vectorizacion
+
+
+## Informacion descriptiva
+
+Los atributos o información descriptiva asociados con objetos geográficos son almacenadas en el computador de una forma similar a como son almacenadas las coordenadas, en tablas.
+
+### tabla de atributos
+![alt text](<Assets/geografica/TABLA DE ATRIBUTOS.png>)
+
+
+## Modelo georelacional
+El poder de los sig es relacionar los datos descriptivos con los geograficos, con esto se define el modelo
+
+Como se realiza el LINK (enlazamiento): 
+- El único identificador de una característica asocia los atributos con las coordenadas de la característica
+- Mantiene una correspondencia de uno-a-uno entre los registros espaciales y los registros atributos
+- El único identificador es almacenado físicamente en dos lugares:
+  - En los archivos conteniendo los X,Y
+  - En la Tabla de atributos
+- Una vez hecha la conexión , se puede desplegar la información de atributos o crear un mapa basado en esos atributos, utilizando los procesos Relate o Links vs Joqin
+- Importante concepto relacional: Uno a muchos
+
+![alt text](<Assets/geografica/RELACIONAL 1.png>)
+![alt text](<Assets/geografica/RELACIONAL 2.png>)
+
 ------------
 # Apuntes de clase - Sistemas de Informacion Geográficos
-**Clase 17/09/2025**
-## Modelo de datos vector 
-
-representa caracteristicas geograficas similares a los matas.
-Usa: puntos, lineas, areas.
-Cada posicion es registrada como una coord
-usando puntos, lineas, areas
-
-
-### punto
-es solo un punto en las coords x,y
-
-### Lineas 
-es un conjunto de coords totalmente diferentes
-
-### Poligono
-Secuencia de coords donde la 1er y ultima coord se repiten
-
-## Estructura de datos Arco-Nodo
-
-no permite que existe la misma linea entre poligonos colisionando (ej: 2 cuadrados lado a lado)
-
-3 conceptos
-- conectividad. 
-- contiguidad
-- awa
-
-
-## Modelo de raster
-
-pixeles jijua
-
-
-Vectorial es mejor para exactitud frfr
+xd 
