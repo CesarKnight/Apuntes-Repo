@@ -56,7 +56,7 @@ write - guardar archivo de configuracion
 interface (nombre interfaz) - entrar a las configuraciones de una interfaz (puerto) 
 ```
 -------------------
-
+# Enrutamiento estatico
 ## Clase 03/09/2025
 
 ### Enrutamiento estatico basico
@@ -187,47 +187,64 @@ Building configuration...
 [OK]
 
 CONTRASEÑA PARA LA CONSOLA
+```
 R01(config)#line console 0
 R01(config-line)#password ROBERTOCONSOLA
 R01(config-line)#login
+```
 
 CONTRASEÑA PARA EL MODO PRIVILEGIADO
+```
 R01(config)#enable secret ROBERTOENABLE
+```
 
 DESACTIVA LA BUSQUEDA DE DNS
+```
 R01(config)#no ip domain-lookup
+```
 
 MENSAJE DE BIENVENIDA 
+```
 R01(config)#banner motd "INGRESO SOLO A PERSONAL AUTORIZADO"
+```
 
 ENCRIPTAR TODAS LAS CONTRASEÑAS
+```
 R01(config)#service password-encryption
+```
 
 
 HABILITAR SSH PARA PODER ADMINISTRA EL ROUTER REMOTAMENTE
 
 CREAR UN USUARIO CON PRIVILEGIOS
+```
 R01(config)#username roberto privilege 15 secret ROBERTOSSH
+```
 
 HABILITAR EL DOMINIO, por acá se conectará el dispositivo a traves de ssh
-
 ```
 R01(config)#ip domain-name cisco.com
 ```
 
 HABILITAR LAS CLAVES CRIPTOGRAFICAS PARA RSA
+```
 R01(config)#crypto key generate rsa
+```
 
 CONFIGURAR SSH
+```
 R01(config)#ip ssh version 2
 R01(config)#ip ssh time-out 120
 R01(config)#ip ssh authentication-retries 3
+```
 
 CONFIGURAR LAS TERMINALES VIRTUALES Y HABILITAR SOLO SSH
-R01(config)#line vty 0 4
+```
+R01(config)#lin vty 0 4
 R01(config-line)#login loc 
 R01(config-line)#transport input ssh
-
+```
+# Otros Protocolos
 ## Clase 15/09/2025. Teoria
 
 ### Clasificacion de protocolos de enrutamiento.
@@ -268,3 +285,76 @@ Otros protocolos y mas teoria
 Acoplarse a una red antigua implica usar otros protocolos en los que ya esta configurado la red, para ello se usa la redistribución de ru enrutamiento
 
 ### Bucles de enrutamiento
+
+
+# RIP
+## Clase 26/09/2025
+
+Mas Protocolos
+
+### RIP
+**Ripv1** ya no se usa 
+**Ripv2**
+
+maximo soporta 15 saltos
+
+
+### Topografia de prueba
+![topografiaRIP1](Assets/Redes2/topografiaRIP1.png)
+
+1. Hacemos las configuraciones basicas de ip
+2. Una vez hecho entrar a las configuraciones de RIP, habilitar la version 2 y deshabilitar autosummary
+```
+Router(config)#router rip
+Router(config-router)#version 2
+Router(config-router)#no auto-summary
+```
+1. Declaramos las redes conectadas al Router. El protocolo se encarga de enrutar a los hosts 
+```
+Router(config-router)#network 10.0.0.0
+Router(config-router)#network 192.168.1.0
+```
+1. Realizar lo mismo en el otro router
+2. Ya ta o.o
+
+
+## Clase 29/09/2025
+
+Ya un enrutamiento grande para rip
+
+
+
+
+| HOSTS | MASCARA             | D.RED      | D. BROADCAST | RANGO                  |
+| ----- | ------------------- | ---------- | ------------ | ---------------------- |
+| 2     | /30 255.255.255.252 | 10.0.0.0   | 10.0.0.3     | 10.0.0.1 - 10.0.0.2    |
+| 2     | /30 255.255.255.252 | 10.0.0.4   | 10.0.0.7     | 10.0.0.5 - 10.0.0.6    |
+| 2     | /30 255.255.255.252 | 10.0.0.8   | 10.0.0.11    | 10.0.0.9 - 10.0.0.10   |
+| 2     | /30 255.255.255.252 | 10.0.0.12  | 10.0.0.15    | 10.0.0.13 - 10.0.0.14  |
+| 2     | /30 255.255.255.252 | 10.0.0.16  | 10.0.0.19    | 10.0.0.17 - 10.0.0.18  |
+| 2     | /30 255.255.255.252 | 10.0.0.20  | 10.0.0.23    | 10.0.0.21 - 10.0.0.22  |
+| 100   | /25 255.255.255.128 | 10.0.0.24  | 10.0.0.151   | 10.0.0.25 - 10.0.0.150 |
+| 100   | /25 255.255.255.128 | 10.0.0.152 | 10.0.1.23    | 10.0.0.153 - 10.0.1.22 |
+| 100   | /25 255.255.255.128 | 10.0.1.24  | 10.0.1.151   | 10.0.1.25 - 10.0.1.150 |
+
+
+
+
+# EGRP
+## Clase 06/10/2025
+
+
+
+
+## OSPF
+## Clase 08/10/2025
+
+**Enrutamiento demostracion**
+
+entramos a las config de OSPF
+
+```
+Router(config)#router ospf 1
+Router(config-router)#network 10.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 192.168.1.0 0.0.0.255 area 0
+```
