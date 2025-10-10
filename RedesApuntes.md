@@ -358,3 +358,57 @@ Router(config)#router ospf 1
 Router(config-router)#network 10.0.0.0 0.0.0.3 area 0
 Router(config-router)#network 192.168.1.0 0.0.0.255 area 0
 ```
+
+
+## Clase 10/10/2025
+## OSPF multiarea
+
+![topografia multiarea](Assets/Redes2/topografiaMultiarea.png)
+
+
+1. Hacemos las configs basicas de lan y wan
+2. Hacemos el router principal de area 0
+```
+Router(config)#router ospf 1
+Router(config-router)#network 192.168.1.0 0.0.0.255 area 0
+Router(config-router)#network 10.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 10.0.0.4 0.0.0.3 area 0
+```
+3. Hacemos el router principal en el area 1
+```
+Router(config)#router ospf 1
+Router(config-router)#network 10.0.0.8 0.0.0.3 area 1
+Router(config-router)#network 192.168.3.0 0.0.0.255 area 1
+Router(config-router)#network 192.168.2.0 0.0.0.255 area 1
+```
+4. Configuramos el router que esta entre el area 1 y el 0
+```
+Router(config)#router ospf 1
+Router(config-router)#network 10.0.0.0 0.0.0.3 area 0
+Router(config-router)#network 10.0.0.8 0.0.0.3 area 1
+
+00:31:22: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.1.1 on Serial0/1/0 from LOADING to FULL, Loading Done
+00:32:05: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.3.1 on Serial0/1/1 from LOADING to FULL, Loading Done
+```
+Los mensajes de Loading Done nos confirman que ospf encontró las redes publicadas
+
+5. Configuracion del router de area 2
+```
+Router(config)#router ospf 1
+Router(config-router)#network 10.0.0.12 0.0.0.3 area 2
+Router(config-router)#network 192.168.4.0 0.0.0.255 area 2
+Router(config-router)#network 192.168.5.0 0.0.0.255 area 2
+```
+6. Configuracion del router entre area 0 y 2
+```
+Router(config-router)#router ospf 1
+Router(config-router)#network 10.0.0.4 0.0.0.3 area 0
+Router(config-router)#network 10.0.0.12 0.0.0.3 area 2
+
+00:37:22: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.1.1 on Serial0/1/1 from LOADING to FULL, Loading Done
+00:37:49: %OSPF-5-ADJCHG: Process 1, Nbr 192.168.5.1 on Serial0/1/0 from LOADING to FULL, Loading Done
+
+```
+
+# ACL
+# DHCP
