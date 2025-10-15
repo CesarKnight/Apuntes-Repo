@@ -412,3 +412,60 @@ Router(config-router)#network 10.0.0.12 0.0.0.3 area 2
 
 # ACL
 # DHCP
+
+### clase 13/10/2025
+
+1. Hacer la configuracion basica
+2. Configurar DHCP en un router, este proveera las direcciones ip a la red
+```
+Router(config)#ip dhcp excluded-address 192.168.1.1
+Router(config)#ip dhcp pool LAN1
+Router(dhcp-config)#network 192.168.1.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.1.1
+Router(dhcp-config)#dns-server 8.8.8.8
+Router(dhcp-config)#domain
+Router(dhcp-config)#domain-name cisco.com
+```
+3.  Entramos a las computadoras conectadas a la red y Asignamos a cada una a que pida direccion ip con DHCP
+4.  Para llegar a un router dhcp de otro, ingresar a la interfaz por donde llegaria la peticion y redireccionar al router dhcp con:
+```
+ip helper-address 10.0.0.1
+```
+5.  
+
+
+
+# Servidores
+### Clase 15/10/2025
+
+![topologia con servidores dhcp, dns, web](Assets/Redes2/TopologiaServidores.png)
+
+Los servidores deben ser enrutados fijamente para que siempre comunicarse con ellos sin variabilidad
+En el enrutamiento para los hosts debemos reservar esas direcciones, en caso de ospf excluyendo el rango necesario
+
+**Servidor DHCP**
+1. Primero conectar con el router como gateway
+2. Asignar su direccion ip
+3. En la pagina de configuraciones seguir con:
+   1. En servicios activar dhcp
+   2. Agregar el router principal como gateway y el servidor dns
+   3. Crear un Pool de direcciones por cada subred necesaria
+   4. añadir el pool y guardar las configs
+
+
+**Servidor DNS**
+1. Primero conectar con el router como gateway
+2. Asignar su direccion ip
+3. En la pagina de configuraciones seguir con:
+   1. Activar dns en servicios
+   2. Añadir los ips con su respectivo dominio
+
+Todos los dispositivos que quieran usar dns tendran que ser proveidos en su configuracion, puede ser tanto estatico como proveido con DHCP
+
+**WEB**
+
+1. Primero conectar con el router como gateway
+2. Asignar su direccion ip
+3. En la pagina de configuraciones seguir con:
+   1. Encender la funcion HTTPS, HTTP
+   2. Configurar a gusto los archivos html
