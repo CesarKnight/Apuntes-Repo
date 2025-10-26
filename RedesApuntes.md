@@ -469,3 +469,80 @@ Todos los dispositivos que quieran usar dns tendran que ser proveidos en su conf
 3. En la pagina de configuraciones seguir con:
    1. Encender la funcion HTTPS, HTTP
    2. Configurar a gusto los archivos html
+
+
+
+
+### Clase 22/10/2025
+
+**PRACTICA**
+
+![practica1](Assets/Redes2/practica1.png)
+
+
+
+1. Subnetting
+
+| LAN  | Subred           | Máscara         | Dirección de red | Broadcast     | Rango de hosts                |
+| ---- | ---------------- | --------------- | ---------------- | ------------- | ----------------------------- |
+| LAN1 | 102.168.1.0/27   | 255.255.255.224 | 102.168.1.0      | 102.168.1.31  | 102.168.1.1 - 102.168.1.30    |
+| LAN2 | 102.168.1.32/27  | 255.255.255.224 | 102.168.1.32     | 102.168.1.63  | 102.168.1.33 - 102.168.1.62   |
+| LAN3 | 102.168.1.64/27  | 255.255.255.224 | 102.168.1.64     | 102.168.1.95  | 102.168.1.65 - 102.168.1.94   |
+| LAN4 | 102.168.1.96/27  | 255.255.255.224 | 102.168.1.96     | 102.168.1.127 | 102.168.1.97 - 102.168.1.126  |
+| LAN5 | 102.168.1.128/27 | 255.255.255.224 | 102.168.1.128    | 102.168.1.159 | 102.168.1.129 - 102.168.1.158 |
+
+
+| WAN  | Subred           | Máscara         | Dirección de red | Broadcast     | Rango de hosts                |
+| ---- | ---------------- | --------------- | ---------------- | ------------- | ----------------------------- |
+| WAN1 | 102.168.1.160/30 | 255.255.255.252 | 102.168.1.160    | 102.168.1.163 | 102.168.1.161 - 102.168.1.162 |
+| WAN2 | 102.168.1.164/30 | 255.255.255.252 | 102.168.1.164    | 102.168.1.167 | 102.168.1.165 - 102.168.1.166 |
+| WAN3 | 102.168.1.168/30 | 255.255.255.252 | 102.168.1.168    | 102.168.1.171 | 102.168.1.169 - 102.168.1.170 |
+| WAN4 | 102.168.1.172/30 | 255.255.255.252 | 102.168.1.172    | 102.168.1.175 | 102.168.1.173 - 102.168.1.174 |
+| WAN5 | 102.168.1.176/30 | 255.255.255.252 | 102.168.1.176    | 102.168.1.179 | 102.168.1.177 - 102.168.1.178 |
+| WAN6 | 102.168.1.180/30 | 255.255.255.252 | 102.168.1.180    | 102.168.1.183 | 102.168.1.181 - 102.168.1.182 |
+| WAN7 | 102.168.1.184/30 | 255.255.255.252 | 102.168.1.184    | 102.168.1.187 | 102.168.1.185 - 102.168.1.186 |
+
+
+2. Hacer las configuraciones locales de LAN y WAN
+3. OSPF en AREA 0
+   
+
+
+
+
+
+
+
+
+Para practicar en lugar de hacer area 10 hacer rip
+En lugar de area 20 hacer egrp
+Area 0 osp
+y estatico al server
+
+
+
+## ACL
+
+Sirve para bloquear la comunicacion desde ciertos origenes
+
+
+ACL STANDAR
+1. Las ACL estándar son aquellas que van numeradas entre el 1 al 99 y de 1300 a 1999
+2. Las ACL estándar solamente pueden bloquear trafico basándose en la dirección ip de origen. Las ACL extendidas miran la ip de origen, la ip de destino, puertos de origen y destino.
+3. Por norma general ACL estándar se configuran lo mas cerca posible del destino y las ACL extendidas lo mas cerca del destino.
+4. Se puede escribir la palabra "host" para reemplazar una ip con wildcard 0.0.0.0 
+5. Se puede escribir la palabra "any" para reemplazar una ip con wildcard 255.255.255.255
+6. Todas las ACL llevan una regla implícita al final denominada "deny any" si es estándar y "deny ip any any" si es extendida.
+7. Las ACL se ejecutan TOP-DOWN, o sea de arriba hacia abajo; es decir el ROUTER recorre cada una de las sentencias y ejecuta la primera con la que haya coincidencia "match", luego descarta las sucesivas.
+
+
+```
+R3(config)#access-list 1 permit 192.168.1.0 0.0.0.7
+R3(config)#access-list 1 deny 192.168.1.0 0.0.0.255
+R3(config)#access-list 1 permit any
+
+
+R3(config)#int g0/0/0
+R3(config-if)#ip access-group 1 out
+
+```
