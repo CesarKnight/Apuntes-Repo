@@ -328,4 +328,16 @@ Como se realiza el LINK (enlazamiento):
 
 ------------
 # Apuntes de clase - Sistemas de Informacion Geográficos
-xd 
+
+
+## Para el proyecto .net
+
+Debemos ser capaces de poner un punto.
+Con la libreria de sig verificar si el punto esta en la interseccion del area de cochabamba
+para ello
+1. Creamos un shape (capa) que contenga el punto
+2. Realizar el query de cochabamba en un shape
+3. Realizar la interseccion
+
+4. Añadimos el mpaa de bolivia, con colores y weas
+5. 

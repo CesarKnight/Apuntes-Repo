@@ -546,3 +546,250 @@ R3(config)#int g0/0/0
 R3(config-if)#ip access-group 1 out
 
 ```
+
+### Clase 27/10/2025
+
+**Ejercicio ACL extendido**
+
+**ACL EXTENDIDA**
+
+
+1. ACL extendida debe estar mas cerca del origen
+   
+### Clase 31/10/2025
+fucking parcial sorpresa y no fuí
+
+
+## vLan
+### Clase 05/11/2025
+![ejemplo vlan](Assets/Redes2/topografiaVlan.png)
+Ayuda a hacer separaciones dentro de una propia red
+
+
+1. Entrar a modo configuracion terminal
+2. Darle nombre a la vlans
+```
+Switch(config)#vlan 10
+Switch(config-vlan)#exit
+Switch(config)#vlan 20
+Switch(config-vlan)#exit
+Switch(config)#vlan 30
+Switch(config-vlan)#exit
+```
+1. acceder a las interfaces para asignar el vlan, para seleccionar un rango de interfaces usar
+```
+Switch(config)#int range fastEthernet 0/1 - fa 0/5
+```
+2. cambiar el modo del puerto a access
+```
+Switch(config-if)#switchport mode access 
+```
+1. Por ultimo designar que acceda a la vlan correspondiente
+```
+Switch(config-if)#switchport access vlan 10
+```
+
+### factos
+- Siempre existe la vlan 1
+- Los puertos sin usar deberian asignarse a una dummy vlan
+
+
+### Clase 12/11/2025
+**Para enrutar vlanes que estan en diferentes switches**
+Usando un router
+
+1. Segmentamos una interfaz en subinterfaces para cada vLan
+```
+Router(config)#interface gigabitEthernet 0/0/0.10
+Router(config-subif)#encapsulation dot1Q 10
+Router(config-subif)#ip add 192.168.10.1 255.255.255.0
+Router(config-subif)#ex
+
+Router(config)#interface gigabitEthernet 0/0/0.20
+Router(config-subif)#encapsulation dot1Q 20
+Router(config-subif)#ip add 192.168.20.1 255.255.255.0
+Router(config-subif)#ex
+
+Router(config)#interface gigabitEthernet 0/0/0.30
+Router(config-subif)#encapsulation dot1q 30
+Router(config-subif)#ip add 192.168.30.1 255.255.255.0
+Router(config-subif)#ex
+``` 
+
+**Activar la interfaz**
+
+```
+Router(config)#int gig0/0/0
+Router(config-if)#no sh
+```
+
+
+## Enrutamiento con switch multicapa
+
+![Enrutamiento switch multicapa](Assets/Redes2/enrutamientoSwitchMulticapa.png)
+En este caso con VLans
+
+
+1. Al switch multicapa habilitamos routing con
+```
+swMulti(config)#ip routing
+```
+2. Hacemos trunk la interfaces que conecten el switch chikito y el multicapa, en ambos.
+aunque cada vez que lo intento me sale que no se puede mover de "auto"
+```
+swMulti(config)#switchport mode trunk
+```
+3. Crear las vlans en el switch multicapa, aunque no los usemos directamente.
+4. Acceder a cada vlan como si fuera una interfaz y asignar la ip de gateway. Funcionarán como interfaces virtuales
+```
+swMulti(config)#int vlan 10
+swMulti(config-if)#ip address 192.168.10.1 255.255.255.0
+swMulti(config-if)#ex
+swMulti(config)#int vlan 20
+swMulti(config-if)#ip add 192.168.20.1 255.255.255.0
+swMulti(config-if)#ex
+swMulti(config)#int vlan 30
+swMulti(config-if)#ip add 192.168.30.1 255.255.255.0
+swMulti(config-if)#ex
+```
+
+### Clase 14/11/2025
+
+Para usar DHCP en cada vlan tratar a cada vlan como si fuera una red
+```
+Router(config)#ip dhcp excluded-address 192.168.40.1
+Router(config)#ip dhcp excluded-address 192.168.50.1
+Router(config)#ip dhcp excluded-address 192.168.60.1
+Router(config)#     ip dhcp pool VLAN1
+Router(dhcp-config)#net 192.168.10.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.10.1
+Router(dhcp-config)#dns-server 8.8.8.8
+Router(dhcp-config)#domain-name cisco.com
+Router(dhcp-config)#ex
+Router(config)#     ip dhcp pool VLAN5
+Router(dhcp-config)#net 192.168.50.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.50.1
+Router(dhcp-config)#dns-server 8.8.8.8
+Router(dhcp-config)#domain-name cisco.com
+Router(dhcp-config)#ex
+Router(config)#     ip dhcp pool VLAN6
+Router(dhcp-config)#net 192.168.60.0 255.255.255.0
+Router(dhcp-config)#default-router 192.168.60.1
+Router(dhcp-config)#dns-ser 8.8.8.8
+Router(dhcp-config)#domain- cisco.com
+Router(dhcp-config)#ex
+```
+
+
+Cuando el switch multicapa debe comunicarse con otro router para el rol de enrutamiento puede ser necesario deshabilitar la funcion de conexion switch en la interfaz, dejando solo la funcion de enrutamiento
+
+```
+swMulti(config-if)#no swichtport 
+```
+
+## Clase 19/11/2025
+Repechaje sorpresa
+
+# Vlan nativa y sw multicapa channel 
+## Clase 21/11/2025
+
+en un dispositivo podemos usar multiples conexiones para mayor desempeño con comunicacion paralela, para ello se debe usar el agrupamiento por Channels
+
+### protocolos de channel
+lacp es generico
+pagp es de cisco
+
+lacp tiene modo Active y Passive. En el enlace entre los 2 dispositivo al menos uno debe ser active
+pagp tiene modo auto
+
+1. seleccionar las multiples interfaces para asignar el canal
+```
+Switch(config)#int range gigabyte 1/0/1-2
+```
+2. Seleccionamos el protocolo
+```
+Switch(config-if-range)#channel-protocol lacp
+```
+3. Asignamos un numero al channel y seleccionamos su modo
+```
+Switch(config-if-range)#channel-group 1 mode active
+```
+4. Para buen funcionamiento en routing, una vez creado el channel debemos cambiar su modo a trunk
+```
+Switch(config-if)#sw mode trunk
+```
+
+### Cambiar vlan nativa
+
+sw trunk allowed vlan 40,50,60,99
+sw trunk native vlan 99
+
+## Clase 24/11/2025
+
+### Switch en medio de vlanes y Router
+
+
+En caso que exista un switch el cual esta recibiendo mensajes de vlanes, use channels y este debe pasarlo a un router para enrutamiento. Se debe permitir el paso de las vlanes a traves del channel con
+
+
+Para la navegacion de vlans por cada channel
+para cada channel
+
+```
+Switch(config-if)#sw trunk allowed vlan 10,20
+```
+
+
+## DHCP VLANES RAPIDO
+cambiar las direcciones para solo copiar y pegar
+
+```
+ip dhcp pool VLAN4
+net 192.168.40.0 255.255.255.0
+default-router 192.168.40.1
+dns-server 8.8.8.8
+domain-name cisco.com
+ex
+```
+
+
+## GATEWAY VIRTUAL
+### clase 28/11/2025
+
+![topologia gateway virtual](Assets/Redes2/topologiaGateway.png)
+
+Gateway virtual es una manera de configurar multiples routers gateway, para tener salvaguarda en caso que uno este inactivo 
+
+
+1. Entrar a la interfaz del router donde se recibiria comunicacion de la red (ej gig0/0/0)
+2. Asignar el grupo de gateway virtual, junto con declaracion de ip con standby
+3. Asignar prioridad de este router
+4. Preparar el gateway con preemp (creo)
+```
+Router(config-if)#standby 1 ip 192.168.10.100
+Router(config-if)#standby 1 priority 100
+```
+5. En el router que se considere como principal usar
+```
+Router(config-if)#standby 1 preempt
+```
+
+### Clase 01/12/2025
+
+## GATEWAYS VIRTUALES EN SWITCHES MULTICAPA
+
+Super topologia con gateways virtuales y switches multicapa
+
+![topo gateways y multicapas](Assets/Redes2/topologiaGatewaysMulticapa.png)
+
+En este caso las direcciones "reales" serian las que asignamos a las interfaces de las vlanes.
+Mientras que, en cada interfaz de vlan tambien tenemos que crear un gateway virtual.
+
+No olvidar usar los switches multicapa como routers con el comando
+```
+ip routing
+```
+y en caso de ser puertos donde se enrutará con direcciones ip fijas, desactivar la funcionalidad de switch (esto hace que funcione como puerto de un router)
+```
+no switchport
+```
