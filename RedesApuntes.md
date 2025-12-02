@@ -265,10 +265,6 @@ Cuando 2 rutas tienen las mismas metricas, se divide el envio de datos para mayo
 
 Otros protocolos y mas teoria
 
-**Redistribucion**
-
-Acoplarse a una red antigua implica usar otros protocolos en los que ya esta configurado la red, para ello se usa la redistribución de ru enrutamiento
-
 
 ## RIP
 ### Clase 26/09/2025
