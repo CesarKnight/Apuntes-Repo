@@ -1,4 +1,5 @@
-# SUBNETTING
+# Apuntes de redes
+## SUBNETTING
 
 *Dada la red 172.16.64.0 /18. Encontrar:*
 
@@ -36,15 +37,15 @@ Ejercicio 2 - Subnetting
 | 4     | /29 255.255.254.248 | 192.168.1.152 | 192.168.1.159 | 192.168.1.153 - 192.168.1.158 |
 
 
-# Primera Topografias en Packet Tracer
-##  Clase 5 - 29/08/2025 
+**Primera Topografias en Packet Tracer**
+### Clase 5 - 29/08/2025 
 
-### Factos
+**Factos**
 
 - Cable Directo: Para conectar dispositivos distintos; router - pc.
 - Cable cruzado: para conectar dispositivos del mismo tipo como; router - router, pc - pc, etc.
 
-### Comandos de Router
+## Comandos de Router
 
 **Comandos de Config Terminal**
 
@@ -56,10 +57,8 @@ write - guardar archivo de configuracion
 interface (nombre interfaz) - entrar a las configuraciones de una interfaz (puerto) 
 ```
 -------------------
-# Enrutamiento estatico
-## Clase 03/09/2025
-
-### Enrutamiento estatico basico
+## Enrutamiento estatico
+### Clase 03/09/2025
 
 Para comunicacion fuera de una red, es necesario dar a el uso de router (enrutador), el cual se encarga de mostrar la ruta de viaje hacia otra red. El router necesita de configuraciones para cumplir el objetivo de comunicar 2 redes por lo que se hará una red bastante usando *Enrutamiento estatico*
 
@@ -130,11 +129,11 @@ ip route 192.168.2.0 255.255.255.0 10.0.0.2
 
 6. Realizar los pasos en los routers necesarios
 
-## Clase 05/09/2025
+### Clase 05/09/2025
 
 Realizamos otro enrutamiento:
 
-### Enrutamiento estatico con 3 Wans
+## Enrutamiento estatico con 3 Wans
 ![Topografia con 3 Wans y 3 Lans](Assets/Redes2/topografiaEstatica2.png)
 
 
@@ -149,17 +148,8 @@ Con la red proveida primero debemos subnettear para encontrar las ips para cada 
 - todas las WANs 2 hosts
 
 
-| HOSTS | MASCARA | D.RED | D. BROADCAST | RANGO |
-| ----- | ------- | ----- | ------------ | ----- |
-| 89    |         |       |              |       |
-| 23    |         |       |              |       |
-| 9     |         |       |              |       |
-| 2     |         |       |              |       |
-| 2     |         |       |              |       |
-
-
-## Clase 12/09/2025
-### Configuracion de credenciales de seguridad en el router
+## Configuracion de credenciales de seguridad en el router
+### Clase 12/09/2025
 
 **El Ing mando estas directivas para una topologia de solo un router: **
 
@@ -213,9 +203,7 @@ ENCRIPTAR TODAS LAS CONTRASEÑAS
 R01(config)#service password-encryption
 ```
 
-
 HABILITAR SSH PARA PODER ADMINISTRA EL ROUTER REMOTAMENTE
-
 CREAR UN USUARIO CON PRIVILEGIOS
 ```
 R01(config)#username roberto privilege 15 secret ROBERTOSSH
@@ -244,10 +232,10 @@ R01(config)#lin vty 0 4
 R01(config-line)#login loc 
 R01(config-line)#transport input ssh
 ```
-# Otros Protocolos
-## Clase 15/09/2025. Teoria
+## Teoria Otros Protocolos
+### Clase 15/09/2025. Teoria
 
-### Clasificacion de protocolos de enrutamiento.
+**Clasificacion de protocolos de enrutamiento.**
 
 - Protocolos classful.
 NO envian la mascara de subred durante las actualizaciones de enrutamiento entre ellos: RIP, IGRP.
@@ -258,7 +246,7 @@ Envia la mascara de subred durante las actualizaciones de enrutamiento.
 **Convergencia.**
 Se define como el estado en que las tablas de enrutamiento de todos los routers son uniformes, practicamente cuando toda la red es totalmente funcional.
 
-### Metricas de los protocolos de enrutamiento.
+**Metricas de los protocolos de enrutamiento.**
 Es un valor para medir el desempeño y eficiencia del enrutamiento.
 
 **Metricas.**
@@ -269,37 +257,30 @@ Es un valor para medir el desempeño y eficiencia del enrutamiento.
 - Carga Confiabilidad.
 
 
-#### Balanceo de Carga.
+**Balanceo de Carga.**
 Cuando 2 rutas tienen las mismas metricas, se divide el envio de datos para mayor velocidad.
 
-#### Distancia admnistrativa de una ruta.
 
-
-
-## Clase 17/09/2025
+### Clase 17/09/2025
 
 Otros protocolos y mas teoria
 
-### Redistribucion
+**Redistribucion**
 
 Acoplarse a una red antigua implica usar otros protocolos en los que ya esta configurado la red, para ello se usa la redistribución de ru enrutamiento
 
-### Bucles de enrutamiento
 
-
-# RIP
-## Clase 26/09/2025
+## RIP
+### Clase 26/09/2025
 
 Mas Protocolos
 
-### RIP
 **Ripv1** ya no se usa 
 **Ripv2**
 
 maximo soporta 15 saltos
 
-
-### Topografia de prueba
+**Topografia de prueba**
 ![topografiaRIP1](Assets/Redes2/topografiaRIP1.png)
 
 1. Hacemos las configuraciones basicas de ip
@@ -318,36 +299,30 @@ Router(config-router)#network 192.168.1.0
 2. Ya ta o.o
 
 
-## Clase 29/09/2025
+### Clase 29/09/2025
 
 Ya un enrutamiento grande para rip
 
 
+## EIGRP
+### Clase 06/10/2025
 
-
-| HOSTS | MASCARA             | D.RED      | D. BROADCAST | RANGO                  |
-| ----- | ------------------- | ---------- | ------------ | ---------------------- |
-| 2     | /30 255.255.255.252 | 10.0.0.0   | 10.0.0.3     | 10.0.0.1 - 10.0.0.2    |
-| 2     | /30 255.255.255.252 | 10.0.0.4   | 10.0.0.7     | 10.0.0.5 - 10.0.0.6    |
-| 2     | /30 255.255.255.252 | 10.0.0.8   | 10.0.0.11    | 10.0.0.9 - 10.0.0.10   |
-| 2     | /30 255.255.255.252 | 10.0.0.12  | 10.0.0.15    | 10.0.0.13 - 10.0.0.14  |
-| 2     | /30 255.255.255.252 | 10.0.0.16  | 10.0.0.19    | 10.0.0.17 - 10.0.0.18  |
-| 2     | /30 255.255.255.252 | 10.0.0.20  | 10.0.0.23    | 10.0.0.21 - 10.0.0.22  |
-| 100   | /25 255.255.255.128 | 10.0.0.24  | 10.0.0.151   | 10.0.0.25 - 10.0.0.150 |
-| 100   | /25 255.255.255.128 | 10.0.0.152 | 10.0.1.23    | 10.0.0.153 - 10.0.1.22 |
-| 100   | /25 255.255.255.128 | 10.0.1.24  | 10.0.1.151   | 10.0.1.25 - 10.0.1.150 |
-
-
-
-
-# EGRP
-## Clase 06/10/2025
-
-
-
+1. Hacer las configuraciones basicas de los routers
+2. En un router crear el proceso de EIGRP con un numero
+```
+Router(config-router)#router eigrp 100
+```
+3. Declaramos las redes conectadas al router, cada red debe de ir acompañado de su wildcard. Siendo el wildcard la inversa de la mascara (ej: mask= 255.255.255.0 wildcard= 0.0.0.255)
+```
+Router(config-router)# network 192.168.2.0 0.0.0.255
+Router(config-router)# network 10.0.12.0 0.0.0.3
+Router(config-router)# network 10.0.23.0 0.0.0.3
+```
+4. Realizar el mismo procedimiento en los demas routers
+5. ya ta -.-
 
 ## OSPF
-## Clase 08/10/2025
+### Clase 08/10/2025
 
 **Enrutamiento demostracion**
 
@@ -360,7 +335,7 @@ Router(config-router)#network 192.168.1.0 0.0.0.255 area 0
 ```
 
 
-## Clase 10/10/2025
+### Clase 10/10/2025
 ## OSPF multiarea
 
 ![topografia multiarea](Assets/Redes2/topografiaMultiarea.png)
@@ -410,10 +385,50 @@ Router(config-router)#network 10.0.0.12 0.0.0.3 area 2
 
 ```
 
-# ACL
-# DHCP
+## Redistribucion entre Enrutamientos
 
-### clase 13/10/2025
+Cuando existen distintas redes que cada una esta configurada con un diferente protocolo de enrutamiento, pero necesitan comunicarse se usa Redistribución.
+Normalmente es un router el encargado de comunicar dos redes y se debe aplicar configuraciones para ambos lados 
+
+**Ej**: A es un red con RIP y B es una red con OSPF. En el router que comparte ambos protocolos, es necesario hacer redistribucion tanto de A -> B como de B -> A, asi asegurando comunicacion
+
+Muchos comandos vienen con valores fijos los cuales son los recomendados para la redistribucion, solo cambiar los valores dentro de los []
+
+**OSPF > EIGRP** 
+```
+router eigrp [# grupo eigrp]
+redistribute ospf [# procedimiento ospf] metric 1500 100 255 1 1500
+```
+**EIGRP > OSPF**
+```
+router ospf [# procedimiento ospf]
+redistribute eigrp [# grupo eigrp] metric 1000 metric-type 1 subnets
+```
+
+**OSPF > RIP**
+```
+router rip
+redistribute ospf [# procedimiento ospf] metric 2
+```
+**RIP > OSPF**
+```
+router ospf [# procedimiento ospf]
+redistribute rip metric 20 metric-type 1 subnets
+```
+
+**RIP > EIGRP**
+```
+router eigrp [# grupo eigrp]
+redistribute rip metric 768 2000 255 1 1500
+```
+**EIGRP > RIP**
+```
+router rip
+redistribute eigrp [# grupo eigrp] metric 3
+```
+
+## DHCP
+### Clase 13/10/2025
 
 1. Hacer la configuracion basica
 2. Configurar DHCP en un router, este proveera las direcciones ip a la red
@@ -427,16 +442,13 @@ Router(dhcp-config)#domain
 Router(dhcp-config)#domain-name cisco.com
 ```
 3.  Entramos a las computadoras conectadas a la red y Asignamos a cada una a que pida direccion ip con DHCP
-4.  Para llegar a un router dhcp de otro, ingresar a la interfaz por donde llegaria la peticion y redireccionar al router dhcp con:
+4.  Para llegar a un router dhcp de otro, ingresar a la interfaz por donde llegaria la peticion de solicitud dhcp y redireccionar al router dhcp con:
 ```
 ip helper-address 10.0.0.1
 ```
-5.  
 
-
-
-# Servidores
-### Clase 15/10/2025
+## Servidores
+#### Clase 15/10/2025
 
 ![topologia con servidores dhcp, dns, web](Assets/Redes2/TopologiaServidores.png)
 
@@ -473,7 +485,7 @@ Todos los dispositivos que quieran usar dns tendran que ser proveidos en su conf
 
 
 
-### Clase 22/10/2025
+#### Clase 22/10/2025
 
 **PRACTICA**
 
@@ -505,13 +517,6 @@ Todos los dispositivos que quieran usar dns tendran que ser proveidos en su conf
 
 2. Hacer las configuraciones locales de LAN y WAN
 3. OSPF en AREA 0
-   
-
-
-
-
-
-
 
 
 Para practicar en lugar de hacer area 10 hacer rip
@@ -556,7 +561,7 @@ R3(config-if)#ip access-group 1 out
 
 1. ACL extendida debe estar mas cerca del origen
    
-### Clase 31/10/2025
+#### Clase 31/10/2025
 fucking parcial sorpresa y no fuí
 
 
@@ -589,7 +594,7 @@ Switch(config-if)#switchport mode access
 Switch(config-if)#switchport access vlan 10
 ```
 
-### factos
+**factos**
 - Siempre existe la vlan 1
 - Los puertos sin usar deberian asignarse a una dummy vlan
 
@@ -687,15 +692,15 @@ Cuando el switch multicapa debe comunicarse con otro router para el rol de enrut
 swMulti(config-if)#no swichtport 
 ```
 
-## Clase 19/11/2025
+### Clase 19/11/2025
 Repechaje sorpresa
 
-# Vlan nativa y sw multicapa channel 
-## Clase 21/11/2025
+## Vlan nativa y sw multicapa channel 
+### Clase 21/11/2025
 
 en un dispositivo podemos usar multiples conexiones para mayor desempeño con comunicacion paralela, para ello se debe usar el agrupamiento por Channels
 
-### protocolos de channel
+## protocolos de channel
 lacp es generico
 pagp es de cisco
 
@@ -718,16 +723,15 @@ Switch(config-if-range)#channel-group 1 mode active
 ```
 Switch(config-if)#sw mode trunk
 ```
+**Cambiar vlan nativa**
 
-### Cambiar vlan nativa
-
+```
 sw trunk allowed vlan 40,50,60,99
 sw trunk native vlan 99
+```
 
-## Clase 24/11/2025
-
-### Switch en medio de vlanes y Router
-
+## Switch en medio de vlanes y Router
+### Clase 24/11/2025
 
 En caso que exista un switch el cual esta recibiendo mensajes de vlanes, use channels y este debe pasarlo a un router para enrutamiento. Se debe permitir el paso de las vlanes a traves del channel con
 
@@ -740,9 +744,32 @@ Switch(config-if)#sw trunk allowed vlan 10,20
 ```
 
 
-## DHCP VLANES RAPIDO
-cambiar las direcciones para solo copiar y pegar
-
+## DHCP POOLS RAPIDO
+Probablemente estas sean los pools mas comunes, al pegar multiples comandos en packet se ejecutan, asi que esto deberia ayudar a ser rapido.
+```
+ip dhcp pool VLAN1
+net 192.168.10.0 255.255.255.0
+default-router 192.168.10.1
+dns-server 8.8.8.8
+domain-name cisco.com
+ex
+```
+```
+ip dhcp pool VLAN2
+net 192.168.20.0 255.255.255.0
+default-router 192.168.20.1
+dns-server 8.8.8.8
+domain-name cisco.com
+ex
+```
+```
+ip dhcp pool VLAN3
+net 192.168.30.0 255.255.255.0
+default-router 192.168.30.1
+dns-server 8.8.8.8
+domain-name cisco.com
+ex
+```
 ```
 ip dhcp pool VLAN4
 net 192.168.40.0 255.255.255.0
@@ -754,7 +781,7 @@ ex
 
 
 ## GATEWAY VIRTUAL
-### clase 28/11/2025
+### Clase 28/11/2025
 
 ![topologia gateway virtual](Assets/Redes2/topologiaGateway.png)
 
@@ -774,9 +801,8 @@ Router(config-if)#standby 1 priority 100
 Router(config-if)#standby 1 preempt
 ```
 
-### Clase 01/12/2025
-
 ## GATEWAYS VIRTUALES EN SWITCHES MULTICAPA
+### Clase 01/12/2025
 
 Super topologia con gateways virtuales y switches multicapa
 
@@ -793,3 +819,4 @@ y en caso de ser puertos donde se enrutará con direcciones ip fijas, desactivar
 ```
 no switchport
 ```
+por ultimo enrutar todos los routers incluyendo los vlanes
