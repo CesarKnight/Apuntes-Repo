@@ -717,6 +717,7 @@ Switch(config-if-range)#channel-group 1 mode active
 ```
 4. Para buen funcionamiento en routing, una vez creado el channel debemos cambiar su modo a trunk
 ```
+Switch(config)#int port-channel 1
 Switch(config-if)#sw mode trunk
 ```
 **Cambiar vlan nativa**
@@ -735,6 +736,8 @@ En caso que exista un switch el cual esta recibiendo mensajes de vlanes, use cha
 Para la navegacion de vlans por cada channel
 para cada channel
 
+**NOTA**
+Usar por donde sea que entre un vlan!
 ```
 Switch(config-if)#sw trunk allowed vlan 10,20
 ```
@@ -742,6 +745,15 @@ Switch(config-if)#sw trunk allowed vlan 10,20
 
 ## DHCP POOLS RAPIDO
 Probablemente estas sean los pools mas comunes, al pegar multiples comandos en packet se ejecutan, asi que esto deberia ayudar a ser rapido.
+```
+ip dhcp excluded-address 10.5.3.1
+ip dhcp pool VLAN40
+net 10.5.3.0 255.255.255.128
+default-router 10.5.3.1
+dns-server 8.8.8.8
+domain-name cisco.com
+ex
+```
 ```
 ip dhcp pool VLAN1
 net 192.168.10.0 255.255.255.0
